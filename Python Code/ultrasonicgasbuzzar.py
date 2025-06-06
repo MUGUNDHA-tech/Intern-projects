@@ -1,16 +1,16 @@
 import paho.mqtt.client as mqtt
 import mysql.connector
 import json
-from twilio.rest import Client
+"""from twilio.rest import Client
 import ssl
 import smtplib
-from email.message import EmailMessage
+from email.message import EmailMessage"""
 
 locker_length=30
 locker_breadth=20
 locker_height=50
 # --- Twilio Configuration ---
-TWILIO_SID = 'AC2d69100e2ade052246eb0e42621298b7'
+"""TWILIO_SID = 'AC2d69100e2ade052246eb0e42621298b7'
 TWILIO_AUTH_TOKEN = '2ed1d10e43a5d397bb5b917cb6453da5'
 TWILIO_FROM = '+17175949519'
 TWILIO_TO = '+919363119154'
@@ -18,7 +18,7 @@ TWILIO_TO = '+919363119154'
 
 EMAIL_SENDER = "mugub06@gmail.com"
 EMAIL_PASSWORD = "ecwysqoeoggmiqkx"
-EMAIL_RECEIVER = "vpriyan425@gmail.com"
+EMAIL_RECEIVER = "vpriyan425@gmail.com" """
 
 # --- Database Configuration ---
 DB_CONFIG = {
@@ -66,16 +66,14 @@ class MQTTSubscriber:
             client.subscribe(MQTT_TOPIC)
         else:
             print(f"❌ Failed to connect with result code {rc}")
-    def send_email_alert(self, distance, smoke):
+    """def send_email_alert(self, distance, smoke):
         if distance > 20:
             subject = "🚨 ALERT: Locker Breach"
-            body = f"""
-            ALERT from IoT Locker Security System!
-
+            body = f""""""ALERT from IoT Locker Security System!
             Sensor Values:
             Distance: {distance} cm
             Action Recommended: Please investigate immediately!!!
-            """
+            """"""
             em = EmailMessage()
             em['From'] = EMAIL_SENDER
             em['To'] = EMAIL_RECEIVER
@@ -93,13 +91,11 @@ class MQTTSubscriber:
 
         elif smoke>400:
             subject = "🚨 ALERT: FIRE DETECTED"
-            body = f"""
-            ALERT from IoT Locker Security System!
-
+            body = f""""""ALERT from IoT Locker Security System!
             Sensor Values:
             SMOKE: {smoke}
             Action Recommended: Please investigate immediately!!!
-            """
+            """"""
             em = EmailMessage()
             em['From'] = EMAIL_SENDER
             em['To'] = EMAIL_RECEIVER
@@ -133,7 +129,7 @@ class MQTTSubscriber:
                 )
                 print("📲 SMS Alert sent! SID:", message.sid)
         except Exception as e:
-            print(f"❌ Failed to send SMS: {e}")
+            print(f"❌ Failed to send SMS: {e}")"""
 
     def on_message(self, client, userdata, msg):
         print(f"\n📩 Message received from {msg.topic}")
@@ -147,8 +143,8 @@ class MQTTSubscriber:
             if distance is not None and smoke is not None:
                 self.store_data(distance, smoke)
                 print(f"📊 distance: {distance} cm | Smoke: {smoke}")
-                self.send_sms_alert(distance, smoke)
-                self.send_email_alert(distance, smoke)
+                #self.send_sms_alert(distance, smoke)
+                #self.send_email_alert(distance, smoke)
             else:
                 print("❗ Invalid data format or missing keys.")
 
